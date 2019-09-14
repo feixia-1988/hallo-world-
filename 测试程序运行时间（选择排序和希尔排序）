@@ -1,0 +1,58 @@
+/*void choice(int *a,int n){
+	int i,j,temp;
+	for(i=0;i<n-1;i++)
+	{
+		for(j=i+1;j<n;j++)
+		{
+			if(a[i]>a[j])
+			{ 
+				temp=a[i];
+				a[i]=a[j];
+				a[j]=temp;
+			}  
+		} 
+	}
+}*/
+/*#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+#include<time.h>
+#define NAX_SIZE 32000 
+int shsort(int *a, int len)   
+{
+    int i,j,temp;
+    int gap;   
+    for(gap=len/2;gap>=1;gap/=2){   
+        for(i=0;i<len;i+=gap){
+          temp=a[i];
+		  j = i - gap;
+		  while(j >= 0 && a[j] > temp){
+			  a[j + gap] = a[j];
+			  j -= gap;
+		  }
+		  a[j + gap] = temp;
+		}
+	}
+	return 0;
+}
+
+int main()
+{
+	clock_t start_t,stop_t;
+	double duration;
+	int i;
+	int data[NAX_SIZE];
+	start_t=clock();
+	srand(time(NULL));
+	for(int g=0;g<100;g++){
+	for(i=0;i<NAX_SIZE;i++)
+	{
+		data[i]=rand();
+	}
+	shsort(data,NAX_SIZE);
+	}
+	stop_t=clock();
+	duration=(double)(stop_t-start_t)/CLK_TCK;
+	printf("%f\n",duration);
+	return 0;
+}*/
