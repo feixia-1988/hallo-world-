@@ -1,0 +1,43 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+	int num;
+	struct node*next;
+};
+struct node*createList(int x){
+	struct node*head=NULL,*tail,*t;
+	int num;
+	int size=sizeof(struct node);
+	for(int i=0;i<x;i++){
+	scanf("%d",&num);
+		t=(struct node*)malloc(size);
+		t->num=num;
+		t->next=NULL;
+		if(head==NULL)
+			head=t;
+		else
+			tail->next=t;
+		tail=t;
+	}
+	return head;
+}
+void printList(struct node*head){
+	struct node*p=NULL;
+	if(head!=NULL){
+		printList(head->next);
+		printf("%d ",head->num);
+	}
+}
+struct node*createList(int x);
+void printList(struct node*head);
+int main(){
+	int n;
+	while(scanf("%d",&n)!=EOF){
+	struct node*head=NULL;
+	head=createList(n);
+	printList(head);
+	printf("\n");
+	
+	}
+	return 0;
+}
