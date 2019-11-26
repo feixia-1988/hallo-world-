@@ -1,0 +1,40 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+typedef struct treepoint * T;
+struct treepoint {
+	char date;
+	T lson, rson;
+};
+char s[110];
+int pos ,len;
+T build() {//建立二叉树
+	T bt = (T)malloc(sizeof(treepoint));
+	pos++;
+	if (s[pos] == '.')
+		bt = NULL;
+	else {
+		bt->date = s[pos];
+		bt->lson = build();
+		bt->rson = build();
+	}
+	return bt;
+}
+void post_order_travel(T bt) {//后序遍历
+	if (bt->lson != NULL)
+		post_order_travel(bt->lson);
+	if (bt->rson != NULL)
+		post_order_travel(bt->rson);
+	printf("%c", bt->date);
+	//free(bt);
+}
+int main() {
+	while (~scanf("%s", s + 1)) {
+		T root = (T)malloc(sizeof(treepoint));
+		len = strlen(s + 1);
+		pos = 0;
+		root=build();
+		post_order_travel(root);
+		puts("");
+	}
+}
