@@ -1,0 +1,66 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+typedef struct kk {
+	int data;
+	struct kk *lch, *rch;
+}kk,*ptr;
+int i=0;
+int s;
+char ss;
+ptr tree(ptr bt,int s) {
+	ptr Node;
+	Node = (ptr)malloc(sizeof(kk));
+	Node->data=s;
+	Node->lch=Node->rch=NULL;
+	if (bt==NULL) 
+		bt=Node;
+	if(bt->lch==NULL&&bt->data>s)	
+	bt->lch=Node;
+	if(bt->rch==NULL&&bt->data<s)	
+	bt->rch=Node;
+		if(s<bt->data)
+			bt->lch =tree(bt->lch,s);
+		if(s>bt->data)
+			bt->rch =tree(bt->rch,s);
+	return bt;
+}
+
+void pesorder(ptr h) {
+	if(h){
+		printf("%d ", h->data);
+		pesorder(h->lch);
+		pesorder(h->rch);
+	}
+}
+void poeorder(ptr h) {
+	if(h){
+		poeorder(h->lch);
+		poeorder(h->rch);
+		printf("%d ", h->data);
+	}
+}
+void inorder(ptr h) {
+	if(h){
+		inorder(h->lch);
+		printf("%d ", h->data);
+		inorder(h->rch);
+	}
+}
+
+int main() {
+	int T,j;
+	scanf("%d", &T);
+	ptr h=NULL;
+	for(j=0;j<T;j++){
+		scanf("%d",&s);
+		h =tree (h,s);
+	}
+		pesorder(h);
+		printf("\n");
+		inorder(h);
+		printf("\n");
+		poeorder(h);
+	
+	return 0;
+}
