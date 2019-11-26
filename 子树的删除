@@ -1,0 +1,83 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+typedef struct kk {
+	char data;
+	struct kk *lch, *rch;
+}kk,*ptr;
+
+int i = -1;
+char s[1000];
+char ss;
+ptr tree(char s[]) {
+	ptr bt;
+	if (s[++i] != '#') {
+		bt = (ptr)malloc(sizeof(kk));
+		bt->data = s[i];
+		bt->lch = tree(s);
+		bt->rch = tree(s);
+	}
+	else
+		bt = NULL;
+	return bt;
+}
+int DelRoot_x(ptr h, char x,int flag)
+{
+    if(h == NULL)
+        return 0;
+    else
+    {
+        if(h->data == x)    //如果当前节点的值为x，则更改标志位，在下面将向递归子函数中传递flag值
+        {
+            flag = 1;
+        }
+
+        int lef_ret = DelRoot_x(h->lch,x,flag);  //递归左子树，lef_ret为从左子树中返回的信息
+        int rig_ret = DelRoot_x(h->rch,x,flag);  //递归右子树，rig_ret为从右子树中返回的信息
+
+        if(1 == flag)       //如果标志为1，说明其祖父结点中有x，也就是说当前结点需要删除
+        {
+            if(h->data == x)    //如果是x结点，则需要向上层结点传递信息，以便其父节点将对应的指针域赋空
+                return 1;
+			free (h);
+        }
+        else
+        {
+             if(1 == lef_ret)    //从子结点接受收的信息，即如果其子结点为x，需要将其指针域赋空
+                h->lch = NULL;
+
+            if(1 == rig_ret )   //从子结点接受收的信息，即如果其子结点为x，需要将其指针域赋空
+                h->rch = NULL;
+        }
+    }
+    return  0;
+}
+void inorder(ptr h) {
+	if(h){
+		printf("%c", h->data);
+		inorder(h->lch);
+		inorder(h->rch);
+	}
+}
+
+int main() {
+	int T;
+	scanf("%d", &T);
+	while (T--) {
+		scanf("%s",s);
+		getchar();
+		scanf("%c", &ss);
+		getchar();
+		ptr h;
+		h = (ptr)malloc(sizeof(kk));
+	   i=-1;
+		h =tree (s);
+		if(h->data!=ss){
+			DelRoot_x(h, ss,0);
+			inorder(h);}
+		else
+			printf("empty");
+		printf("\n");
+	}
+	return 0;
+}
