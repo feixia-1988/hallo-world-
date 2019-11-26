@@ -1,0 +1,52 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<malloc.h>
+typedef struct kk {
+	int data;
+	struct kk *lchild;
+	struct kk *rchild;
+}kk, *ptr;
+int len; 
+char s[1000];
+int i = 0;
+ptr PerCreateTree() {
+	ptr t;
+	if (i >= len) 
+		return t = NULL;
+	if (s[i] == '#') {
+		i += 2;
+		t = NULL;
+	}
+	else{
+		t = (ptr)malloc(sizeof(kk));
+		int y=0;
+	while(s[i]!=' '){
+		y=y*10+s[i]-'0';
+		i++;
+	}
+		i++;
+		t->data = y;
+		t->lchild=PerCreateTree();
+		t->rchild=PerCreateTree();
+	}
+	return t;
+}
+int sumOfLeftLeaves(ptr t){
+    if(!t) 
+        return 0;
+    if(t->lchild &&t->lchild->lchild==NULL && t->lchild->rchild == NULL)
+        return t->lchild->data + sumOfLeftLeaves(t->rchild);
+    return sumOfLeftLeaves(t->lchild) + sumOfLeftLeaves(t->rchild);
+}
+int main() {
+		int u;
+		while(gets(s)){
+		len = strlen(s);
+		ptr h;
+		h=PerCreateTree();
+		u=sumOfLeftLeaves(h);
+		printf("%d\n", u);
+		}
+	return 0;
+}
