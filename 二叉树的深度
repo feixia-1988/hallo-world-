@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<malloc.h>
+typedef struct kk {
+	char data;
+	struct kk *lchild;
+	struct kk *rchild;
+}kk, *ptr;
+char s[1000];
+int i = -1;
+ptr tree(char s[]) {
+	ptr bt;
+	if (s[++i] != '#') {
+		bt = (ptr)malloc(sizeof(kk));
+		bt->data = s[i];
+		bt->lchild = tree(s);
+		bt->rchild = tree(s);
+	}
+	else
+		bt = NULL;
+	return bt;
+}
+int depth(ptr tree) {
+	int i, j;
+	int dep=0;
+	int maxdep = 0;
+	if (!tree)
+		return 0;
+	else {
+		int d1 = depth(tree->lchild);
+		int d2 = depth(tree->rchild);
+		return (d1 > d2 ? d1 : d2)+1;
+
+	}
+}
+int main() {
+		scanf("%s", &s);
+		ptr h;
+		int u;
+		h = tree(s);
+		u = depth(h);
+		printf("%d\n", u-1);
+	
+	return 0;
+}
